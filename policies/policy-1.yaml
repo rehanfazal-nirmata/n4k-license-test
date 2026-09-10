@@ -1,0 +1,18 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: repo-policy-1
+spec:
+  rules:
+    - name: check-label-1
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        message: "repo-managed test policy 1"
+        pattern:
+          metadata:
+            labels:
+              test: "?*"

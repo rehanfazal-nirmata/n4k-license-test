@@ -1,0 +1,8 @@
+# Reproduces the customer's reported misconfiguration:
+# license.create + license.value ALONGSIDE license.existingSecret.
+# The chart's own generated secret silently wins, so the real license
+# (mounted separately as existingSecret) is never actually used.
+license:
+  create: true
+  value: "placeholder-not-a-real-license"
+  existingSecret: n4k-license
