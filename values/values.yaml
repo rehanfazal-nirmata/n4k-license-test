@@ -1,8 +1,6 @@
-# Reproduces the customer's reported misconfiguration:
-# license.create + license.value ALONGSIDE license.existingSecret.
-# The chart's own generated secret silently wins, so the real license
-# (mounted separately as existingSecret) is never actually used.
+# Variant B: existingSecret points at a secret name that isn't actually
+# present yet (e.g. Vault Agent Injector hasn't created/synced it, or a
+# name/key mismatch). The volume mount is `optional: true`, so the pod
+# stays healthy -- but the license file is simply absent.
 license:
-  create: true
-  value: "placeholder-not-a-real-license"
-  existingSecret: n4k-license
+  existingSecret: n4k-license-not-yet-injected
